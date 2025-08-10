@@ -10,7 +10,7 @@ from app.crud.HybridSearch import extract_triples_from_text
 from app.pkgs.Neo4jManager import neo4j_graph
 
 
-UPLOAD_LOG_FILE = "upload_history.json"
+UPLOAD_LOG_FILE = "app/upload_history.json"
 
 embedding_model = HuggingFaceEmbeddings(
     model_name=EMBEDDING_MODEL

@@ -3,7 +3,7 @@ import re
 
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
-from app.pkgs.model import call_gemma3n_api
+from app.pkgs.model import call_gemma3n_api, call_llm_studio_api
 from app.pkgs.Neo4jManager import neo4j_graph
 
 # -------- Trích xuất triples từ văn bản
@@ -34,14 +34,14 @@ def extract_triples_from_text(text: str):
 
 
 def semantic_search(question: str, top_k: int = 3):
-    if not os.path.exists("faiss_index"):
+    if not os.path.exists("app/faiss_index"):
         print("⚠️ Chưa có index FAISS, vui lòng upload file trước.")
         return []
 
     embedding_model = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
-    vectorstore = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_deserialization=True)
+    vectorstore = FAISS.load_local("app/faiss_index", embedding_model, allow_dangerous_deserialization=True)
     return vectorstore.similarity_search(question, k=top_k)
 
 # -------- Trích xuất thực thể từ câu hỏi

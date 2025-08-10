@@ -6,7 +6,7 @@ from app.upload_data import embedding_model
 
 # Tìm kiếm theo semantic
 def semantic_search(question: str, top_k: int = 3):
-    vectorstore = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_deserialization=True)
+    vectorstore = FAISS.load_local("app/faiss_index", embedding_model, allow_dangerous_deserialization=True)
     return vectorstore.similarity_search(question, k=top_k)
 
 # Hỏi và kết hợp thông tin để trả lời
